@@ -1,0 +1,43 @@
+body {
+    background-color: #3b7197;
+    color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 40px; /* Dá espaço à volta de toda a página */
+}
+
+/* Criar um contentor em cartão/caixa translúcida para dar destaque */
+.container, body {
+    /* Podes aplicar margens nos títulos e listas */
+}
+
+h1, h2, h3 {
+    color: #ffffff;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+/* Espaçamento elegante para as listas de alunos e links */
+ul {
+    list-style-type: square;
+    padding-left: 20px;
+    margin-bottom: 25px;
+}
+
+li {
+    margin-bottom: 6px;
+    font-size: 1.05rem;
+}
+
+/* Estilo dos links que já melhoraste */
+a {
+    color: #ffda79;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.2s ease;
+}
+
+a:hover {
+    color: #ffffff;
+    text-decoration: underline;
+}
