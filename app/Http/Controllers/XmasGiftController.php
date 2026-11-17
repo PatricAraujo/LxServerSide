@@ -59,7 +59,8 @@ class XmasGiftController extends Controller
                 'xmas_gifts.user_id',
                 'users.name as user_name'
             )
-            ->orderBy('xmas_gifts.id')
+            // ->orderBy('xmas_gifts.id')
+            ->where('xmas_gifts.id', $id)
             ->first(); //chamar só um obj
         // dd($userInfo);
 
