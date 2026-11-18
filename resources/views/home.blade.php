@@ -2,7 +2,9 @@
 
 @section('content')
     <img src="{{ asset('Images/Unit.png') }}" alt="warrior-icon">
-
+    @auth
+        <h1>Olá {{Auth::user()->name}}</h1>
+    @endauth
 
 
     @if (isset($courseName))
@@ -44,6 +46,4 @@
     <li><a href="{{ route('users.create') }}">Adicionar Utilizador</a></li>
     <li><a href="{{ route('tasks.all') }}">Todas as tarefas</a></li>
 </ul>
-
-
 @endsection

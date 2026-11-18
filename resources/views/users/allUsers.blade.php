@@ -15,6 +15,10 @@
 @if (session('message'))
     <div class="alert alert-success">{{ session('message') }}</div>
 @endif
+<form action="">
+    <input type="text" name="search">
+    <button class="btn btn-secondary" type="submit">Procurar</button>
+</form>
 
 <h6>Utilizadores da base de dados</h6>
 <table class="table">
@@ -25,26 +29,32 @@
             <th scope="col">Email</th>
             <th scope="col">Address</th>
             <th scope="col">NIF</th>
-            <th></th>
-             <th></th>
+            @auth
+                <th></th>
+                <th></th>
+            @endauth
+
         </tr>
     </thead>
     <tbody>
-        @if(@isset($usersDB))
-        @foreach ($usersDB as $userDB)
-        <tr>
-            <th scope="row">{{ $userDB->id }}</th>
-            <td>{{ $userDB->name}}</td>
-            <td>{{ $userDB->email }}</td>
-            <td>{{ $userDB->address}}</td>
-            <td>{{ $userDB->nif}}</td>
-            <td><a href="{{route('users.update', $userDB->id )}}" class="btn btn-info">Ver / Editar</a></td>
-            <td><a href="{{route('users.delete', $userDB->id )}}" class="btn btn-danger">Apagar</a></td>
+        @if (@isset($usersDB))
+            @foreach ($usersDB as $userDB)
+                <tr>
+                    <th scope="row">{{ $userDB->id }}</th>
+                    <td>{{ $userDB->name }}</td>
+                    <td>{{ $userDB->email }}</td>
+                    <td>{{ $userDB->address }}</td>
+                    <td>{{ $userDB->nif }}</td>
+                    @auth
+                        <td><a href="{{ route('users.update', $userDB->id) }}" class="btn btn-info">Ver / Editar</a></td>
+                        <td><a href="{{ route('users.delete', $userDB->id) }}" class="btn btn-danger">Apagar</a></td>
+                    @endauth
 
-            {{-- {{route('users.update', $userDB->id )}} --}}
-        </tr>
-        @endforeach
+
+                    {{-- {{route('users.update', $userDB->id )}} --}}
+                </tr>
+            @endforeach
         @endisset
-    </tbody>
+</tbody>
 </table>
 @endsection

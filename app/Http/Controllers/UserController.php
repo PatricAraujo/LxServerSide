@@ -25,10 +25,20 @@ class UserController extends Controller
     private function userFromDB()
     {
         //puxa do models User
-        $usersDB = User::select('id', 'name', 'address', 'email', 'nif')
+        $usersDB = User::select('id', 'name', 'address', 'email', 'nif');
             // ->where('name', 'sara')
             //get - traz sempre um array
-            ->get();
+        $searchPar = request()->query('search')?request()->query('search'):null;
+
+        $query = User::select('id','name', 'address', 'email','nif');
+
+        if ($searchPar) {
+        $query->where('name', 'LIKE', "%{$searchPar}%")
+        ->orWhere('email', 'LIKE', "%{$searchPar}%");
+    }
+
+        $usersDB=$query->get();
+
         //first - traz o primeiro que encontra
         // ->first();
         return $usersDB;
@@ -39,6 +49,7 @@ class UserController extends Controller
     {
         $usersDB = $this->userFromDB();
         $usersWDB = $this->LoadUsersWDB();
+
         // dd($usersDB);
         return view('users.allUsers', compact('usersWDB', 'usersDB'));
     }

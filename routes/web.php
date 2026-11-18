@@ -43,7 +43,7 @@ Route::get(
 Route::get(
     '/edit-users/{id}',
     [UserController::class, 'UpdateUser']
-)->name('users.update');
+)->name('users.update')->middleware('auth');
 
 Route::post(
     '/store-users',
