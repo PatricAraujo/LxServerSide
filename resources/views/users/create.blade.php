@@ -6,8 +6,9 @@
         <div class="container mt-4">
         <h2>Adicionar utilizadores</h2>
 
-        <form method="POST" action="{{ route('users.store') }}">
+        <form method="POST" action="{{ route('users.store') }}" enctype="multipart/form-data">
             @csrf
+            {{-- @method('PUT') --}}
 
             <div class="row">
 
@@ -52,6 +53,12 @@
                     @error('address')
                         <p>nif inválido</p>
                     @enderror
+                    <div class="mb-3">
+                        <label for="nif" class="form-label">Foto</label>
+                        <input type="file" accept="image/*" id="image" name="image">
+                    </div>
+
+
                     <button type="submit" class="btn btn-primary">Guardar</button>
 
                 </div>

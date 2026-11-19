@@ -41,3 +41,8 @@ a:hover {
     color: #ffffff;
     text-decoration: underline;
 }
+.photo-data {
+    width: 73px;
+    height: 71px;
+    object-fit: cover;
+}

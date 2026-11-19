@@ -1,7 +1,7 @@
 @extends('layouts.fo')
 
 @section('content')
-    <h1>Olá, aqui podes Adicionar utilizadores</h1>
+    <h1>Login</h1>
 
         <div class="container mt-4">
         <h2>Adicionar utilizadores</h2>
@@ -22,6 +22,7 @@
                     <div class="mb-3">
                         <label for="email" class="form-label">Password</label>
                         <input type="password" class="form-control" id="password" name="password" required>
+                        <p>Esqueceu a senha ? Clique <a href="{{route('password.request')}}">aqui</a>!</p>
                     </div>
                     @error('password')
                         <p>Password inválido!</p>

@@ -17,11 +17,15 @@ class User extends Authenticatable
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
 
+    const TYPE_ADMIN = 1;
+    const TYPE_BASIC_USER = 0;
+
     /**
      * Get the attributes that should be cast.
      *
      * @return array<string, string>
      */
+
     protected function casts(): array
     {
         return [

@@ -12,6 +12,7 @@
     <table class="table">
         <thead>
             <tr>
+                
                 <th scope="col">#</th>
                 <th scope="col">Name</th>
                 <th scope="col">Status</th>
@@ -25,6 +26,7 @@
             @if (@isset($tasksDB))
                 @foreach ($tasksDB as $task)
                     <tr>
+                        <th></th>
                         <th scope="row">{{ $task->id }}</th>
                         <td>{{ $task->name }}</td>
                         <td>{{ $task->status == \App\Models\Task::STATUS_COMPLETED ? 'Completo' : 'Incompleto' }}</td>

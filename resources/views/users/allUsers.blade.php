@@ -24,6 +24,7 @@
 <table class="table">
     <thead>
         <tr>
+            <th></th>
             <th scope="col">#</th>
             <th scope="col">Name</th>
             <th scope="col">Email</th>
@@ -31,8 +32,11 @@
             <th scope="col">NIF</th>
             @auth
                 <th></th>
-                <th></th>
             @endauth
+            @if(Auth::user() && Auth::user()->email == 'admin@gmail.com')
+                <th></th>
+            @endif
+
 
         </tr>
     </thead>
@@ -40,15 +44,20 @@
         @if (@isset($usersDB))
             @foreach ($usersDB as $userDB)
                 <tr>
-                    <th scope="row">{{ $userDB->id }}</th>
+                    <td><img class="photo-data" src="{{ $userDB->photo ? asset('storage/' .$userDB->photo) : asset('images/nophoto.jpg') }}"
+                            alt=""> </td>
+                    <td scope="row">{{ $userDB->id }}</td>
                     <td>{{ $userDB->name }}</td>
                     <td>{{ $userDB->email }}</td>
                     <td>{{ $userDB->address }}</td>
                     <td>{{ $userDB->nif }}</td>
                     @auth
                         <td><a href="{{ route('users.update', $userDB->id) }}" class="btn btn-info">Ver / Editar</a></td>
-                        <td><a href="{{ route('users.delete', $userDB->id) }}" class="btn btn-danger">Apagar</a></td>
                     @endauth
+                    @if(Auth::user() && Auth::user()->email == 'admin@gmail.com')
+                        <td><a href="{{ route('users.delete', $userDB->id) }}" class="btn btn-danger">Apagar</a></td>
+                    @endif
+
 
 
                     {{-- {{route('users.update', $userDB->id )}} --}}

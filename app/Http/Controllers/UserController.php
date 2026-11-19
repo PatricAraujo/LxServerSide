@@ -8,6 +8,7 @@ use App\Models\XmasGift;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Storage;
 
 class UserController extends Controller
 {
@@ -25,12 +26,12 @@ class UserController extends Controller
     private function userFromDB()
     {
         //puxa do models User
-        $usersDB = User::select('id', 'name', 'address', 'email', 'nif');
+        $usersDB = User::select('id', 'name', 'address', 'email', 'nif', 'photo');
             // ->where('name', 'sara')
             //get - traz sempre um array
         $searchPar = request()->query('search')?request()->query('search'):null;
 
-        $query = User::select('id','name', 'address', 'email','nif');
+        $query = User::select('id','name', 'address', 'email','nif', 'photo');
 
         if ($searchPar) {
         $query->where('name', 'LIKE', "%{$searchPar}%")
@@ -87,8 +88,10 @@ class UserController extends Controller
             'name' => 'required|max:50',
             'email' => 'required|email|unique:users',
             'password' => 'min:8|required',
+            'photo' => 'image'
 
         ]);
+
 
         //depois de validados, inserir na bd
         User::insert([
@@ -96,7 +99,8 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'address' => $request->address,
-            'nif' => $request->nif
+            'nif' => $request->nif,
+            'photo' => isset($photo)? $photo : null
         ]);
         return redirect()->route('users.all')->with('message', 'Utilizador adicionado com sucesso!');
     }
@@ -108,12 +112,19 @@ class UserController extends Controller
         'name'    => 'required|max:50',
         'address' => 'nullable|string',
         'nif'     => 'nullable|string',
+        'photo' => 'image'
     ]);
+
+    if($request->hasFile('photo')){
+        //armazenar no storage e guardar o caminho numa var
+        $photo = Storage::putFile('userPhotos', $request->photo);
+    }
 
     User::where('id', $request->id)->update([
         'name'    => $request->name,
         'address' => $request->address,
         'nif'     => $request->nif,
+        'photo' => isset($photo)? $photo : null
     ]);
 
         return redirect()->route('users.all')->with('message', 'user actualizado com sucesso!');
